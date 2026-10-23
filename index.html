@@ -31,6 +31,19 @@ a.card:hover{border-color:rgba(255,212,121,.55)}
 .foot{margin-top:22px;color:#6f8592;font-size:11.5px;text-align:center;line-height:1.9}
 .foot a{color:#8fa6b4;text-decoration:none;border-bottom:1px solid rgba(143,166,180,.35)}
 @media(max-width:360px){.grid{gap:10px}}
+
+/* 分享：多平台圖示列（桌機顯示；手機用系統分享） */
+.shrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.sh{display:inline-flex;align-items:center;justify-content:center;min-width:64px;height:38px;padding:0 14px;border-radius:999px;
+  font-size:12.5px;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.18)}
+.sh:active{transform:scale(.97)}
+.sh.line{background:#06C755}
+.sh.fb{background:#1877F2}
+.sh.th{background:#000;border-color:#333}
+.sh.x{background:#111;border-color:#333}
+.sh.tg{background:#229ED9}
+.sh.wa{background:#25D366;color:#06301a}
+.sh.copy{background:rgba(255,212,121,.14);color:var(--gold);border-color:rgba(255,212,121,.5);cursor:pointer;font-family:inherit}
 </style>
 </head>
 <body>
@@ -69,6 +82,15 @@ a.card:hover{border-color:rgba(255,212,121,.55)}
 
   <div class="share">
     <button id="shareBtn" type="button">📤 分享給朋友</button>
+    <div class="shrow" id="shRow" hidden>
+      <a class="sh line" data-sh="line" href="#">LINE</a>
+      <a class="sh fb" data-sh="fb" href="#">Facebook</a>
+      <a class="sh th" data-sh="threads" href="#">脆</a>
+      <a class="sh x" data-sh="x" href="#">X</a>
+      <a class="sh tg" data-sh="telegram" href="#">Telegram</a>
+      <a class="sh wa" data-sh="whatsapp" href="#">WhatsApp</a>
+      <button class="sh copy" id="shCopy" type="button">複製連結</button>
+    </div>
   </div>
 
   <p class="foot">
@@ -80,16 +102,51 @@ a.card:hover{border-color:rgba(255,212,121,.55)}
 </div>
 <script>
 (function () {
+  var url = location.href;
+  var text = '好物雷達 GoodRadar｜酷澎・蝦皮的優惠，還有線上下載工具與免費小遊戲';
   var btn = document.getElementById('shareBtn');
-  if (!btn) return;
-  btn.addEventListener('click', function () {
-    var data = { title: '好物雷達 GoodRadar', text: '酷澎・蝦皮的優惠，還有線上下載工具與免費小遊戲', url: location.href };
-    if (navigator.share) { navigator.share(data).catch(function () {}); return; }
-    var done = function () { btn.textContent = '✅ 已複製連結'; setTimeout(function () { btn.textContent = '📤 分享給朋友'; }, 1800); };
+  var row = document.getElementById('shRow');
+
+  // 手機：直接用系統分享（會跳出 LINE／FB／微信… 的選單）
+  function canNative() { return !!(navigator.share); }
+  function showRow() { if (row) row.hidden = false; if (btn) btn.textContent = '📤 分享給朋友'; }
+  function copyLink(msgEl) {
+    var done = function () { if (msgEl) { msgEl.textContent = '已複製'; setTimeout(function(){ msgEl.textContent = '複製連結'; }, 1600); } };
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(location.href).then(done, function () { prompt('複製這個連結分享：', location.href); });
-    } else { prompt('複製這個連結分享：', location.href); }
+      navigator.clipboard.writeText(url).then(done, function () { prompt('複製這個連結分享：', url); });
+    } else { prompt('複製這個連結分享：', url); }
+  }
+
+  if (btn) {
+    btn.addEventListener('click', function () {
+      if (canNative()) {
+        navigator.share({ title: '好物雷達 GoodRadar', text: text, url: url }).catch(function () { showRow(); });
+      } else {
+        showRow();   // 桌機 / 不支援 → 顯示平台圖示
+      }
+    });
+  }
+
+  // 平台連結（純 URL，無 SDK）
+  var T = encodeURIComponent(text), U = encodeURIComponent(url);
+  var LINKS = {
+    line: 'https://social-plugins.line.me/lineit/share?url=' + U + '&text=' + T,
+    fb: 'https://www.facebook.com/sharer/sharer.php?u=' + U,
+    threads: 'https://www.threads.com/intent/post?text=' + T + '%20' + U,
+    x: 'https://twitter.com/intent/tweet?url=' + U + '&text=' + T,
+    telegram: 'https://t.me/share/url?url=' + U + '&text=' + T,
+    whatsapp: 'https://wa.me/?text=' + T + '%20' + U
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('.sh[data-sh]'), function (a) {
+    var key = a.getAttribute('data-sh');
+    if (LINKS[key]) a.href = LINKS[key];
+    a.target = '_blank'; a.rel = 'noopener';
   });
+  var cp = document.getElementById('shCopy');
+  if (cp) cp.addEventListener('click', function () { copyLink(cp); });
+
+  // 桌機：直接把平台列顯示出來（不用先按）
+  if (!canNative()) showRow();
 })();
 </script>
 </body>
