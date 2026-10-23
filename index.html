@@ -21,21 +21,16 @@ h1{font-size:20px;margin:12px 0 6px;letter-spacing:.02em}
 .sub{color:var(--dim);font-size:13px;margin:0;line-height:1.7}
 h2{font-size:13px;color:var(--gold);letter-spacing:.08em;margin:24px 4px 10px;font-weight:600}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 14px;min-height:118px;position:relative;overflow:hidden;transition:transform .12s ease,border-color .12s}
+a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:0;position:relative;overflow:hidden;transition:transform .12s ease,border-color .12s}
+a.card img.shot{width:100%;height:auto;display:block}
 a.card:active{transform:scale(.98)}
 a.card:hover{border-color:rgba(255,212,121,.55)}
-a.card img.logo{width:42px;height:42px;object-fit:contain;border-radius:10px;margin-bottom:9px;display:block}
-a.card b{display:block;font-size:15px;margin-bottom:4px}
-a.card span{display:block;font-size:12px;color:var(--dim);line-height:1.6}
-a.card .go{position:absolute;right:12px;top:12px;color:var(--gold);font-size:13px;opacity:.8}
-.cp{border-color:rgba(229,37,40,.45);background:linear-gradient(160deg,rgba(229,37,40,.14),rgba(15,33,27,.92))}
-.sp{border-color:rgba(238,77,45,.45);background:linear-gradient(160deg,rgba(238,77,45,.14),rgba(15,33,27,.92))}
 .share{margin-top:26px;text-align:center}
 .share button{appearance:none;border:1px solid rgba(255,212,121,.5);background:rgba(255,212,121,.12);color:var(--gold);padding:12px 22px;border-radius:999px;font-size:14px;cursor:pointer;font-family:inherit}
 .share button:active{transform:scale(.98)}
 .foot{margin-top:22px;color:#6f8592;font-size:11.5px;text-align:center;line-height:1.9}
 .foot a{color:#8fa6b4;text-decoration:none;border-bottom:1px solid rgba(143,166,180,.35)}
-@media(max-width:360px){.grid{gap:10px}a.card{padding:14px 12px;min-height:110px}a.card b{font-size:14px}}
+@media(max-width:360px){.grid{gap:10px}}
 </style>
 </head>
 <body>
@@ -48,45 +43,27 @@ a.card .go{position:absolute;right:12px;top:12px;color:var(--gold);font-size:13p
 
   <h2>🛍 先逛這裡</h2>
   <div class="grid">
-    <a class="card cp" href="https://coupa.ng/cqmRjw" target="_blank" rel="noopener">
-      <span class="go">↗</span>
-      <img class="logo" src="img/coupang.png" alt="酷澎 Coupang">
-      <b>酷澎 Coupang</b>
-      <span>火箭配送・天天有折扣<br>從這裡進站下單，也算支持我</span>
+    <a class="card" href="https://coupa.ng/cqmRjw" target="_blank" rel="noopener">
+      <img class="shot" src="cards/coupang.png" alt="酷澎 Coupang">
     </a>
-    <a class="card sp" href="https://s.shopee.tw/4B0wM63aE9" target="_blank" rel="noopener">
-      <span class="go">↗</span>
-      <img class="logo" src="img/shopee_128.png" alt="蝦皮 Shopee">
-      <b>蝦皮短影音</b>
-      <span>邊看邊買<br>影片裡的東西點一下就到</span>
+    <a class="card" href="https://s.shopee.tw/4B0wM63aE9" target="_blank" rel="noopener">
+      <img class="shot" src="cards/shopee.png" alt="蝦皮 Shopee">
     </a>
   </div>
 
   <h2>🧰 我們自己做的</h2>
   <div class="grid">
     <a class="card" href="https://scefo.com/" target="_blank" rel="noopener">
-      <span class="go">↗</span>
-      <img class="logo" src="img/scefo_128.png" alt="轉運站">
-      <b>轉運站</b>
-      <span>13 平台無水印下載<br>＋同 WiFi 無損傳輸</span>
+      <img class="shot" src="cards/scefo.png" alt="轉運站">
     </a>
     <a class="card" href="https://v8i8.com/" target="_blank" rel="noopener">
-      <span class="go">↗</span>
-      <img class="logo" src="img/v8i8_128.png" alt="v8i8 去水印">
-      <b>v8i8 去水印</b>
-      <span>貼上連結就下載<br>免註冊、手機可存相簿</span>
+      <img class="shot" src="cards/v8i8.png" alt="v8i8 去水印">
     </a>
     <a class="card" href="https://kenqplay.com/zh-tw/" target="_blank" rel="noopener">
-      <span class="go">↗</span>
-      <img class="logo" src="img/kenq.png" alt="啃Q 小遊戲">
-      <b>啃Q 小遊戲</b>
-      <span>4000+ 免費線上遊戲<br>不用下載、打開就玩</span>
+      <img class="shot" src="cards/kenq.png" alt="啃Q 小遊戲">
     </a>
     <a class="card" href="https://www.threads.com/@scefo0971" target="_blank" rel="noopener">
-      <span class="go">↗</span>
-      <img class="logo" src="img/threads_128.png" alt="脆 Threads">
-      <b>追蹤我（脆）</b>
-      <span>每天更新生活好物<br>有問題也可以直接問</span>
+      <img class="shot" src="cards/threads.png" alt="脆 Threads">
     </a>
   </div>
 
